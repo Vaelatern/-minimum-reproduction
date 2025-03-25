@@ -14,7 +14,10 @@ class WaitAMinuteWorkflow:
     @workflow.run
     async def run(self) -> str:
         self.is_poked = False
-        await workflow.wait_condition(lambda: self.is_poked, timeout=timedelta(minutes=1))
+        try:
+            await workflow.wait_condition(lambda: self.is_poked, timeout=timedelta(minutes=1))
+        except asyncio.TimeoutError as e:
+            pass
         return "all done"
 
     @workflow.signal
