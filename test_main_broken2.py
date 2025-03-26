@@ -1,3 +1,4 @@
+import asyncio
 import uuid
 import pytest
 from temporalio import workflow
